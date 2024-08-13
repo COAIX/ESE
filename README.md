@@ -133,8 +133,29 @@ docker run --name sentinel --restart=unless-stopped -d -p 8858:8858 -p 8719:8719
 
 ## 4.6 Nginx
 
-```shell
-docker pull ngins:latest
+Pull Official Nginx Image
+
+```bash
+docker pull nginx:latest
+```
+
+Use `DockerFile` to build image
+
+```dockerfile
+#/-- DockerFile
+#	/-- Nginx
+#		/-- DockerFile
+#use the official Nginx image as the base image
+FROM nginx:latest
+#Copy local nginx configuration file to the container
+COPY nginx.conf /etc/nginx/nginx.conf
+# Expose ports.
+EXPOSE 80
+EXPOSE 8081
+EXPOSE 7071
+EXPOSE 9091
+# Define default command.
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 Update `nginx.conf`, it s the Nginx configuration file
@@ -199,6 +220,29 @@ http {
 }
 ```
 
+Build My Nginx Image
+
+```shell
+/--Nginx
+	/--nginx.conf
+	/--DockerFile
+
+#bulid command
+docker build -t nginx_ghc .
+#check docker images
+docker ps
+```
+
+![image-20240814012513852](img/README.assets/image-20240814012513852.png)
+
+```bash
+#run commmand
+docker run -d --name docker_ghc -p 80:80 -p 9091:9091 -p 7071:7071 -p 8081:8081 nginx
+#check running status
+```
+
+![image-20240814012549022](img/README.assets/image-20240814012549022.png)
+
 ## 4.7 Micro Service Prepare And Containerize
 
 Before this stage, check the docker running status by command  `docker ps` , make sure that all component run successfully
@@ -244,6 +288,23 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 Maven run `clean` and `package` to get `userService.jar ` , `patientService.jar` and `appointmentService.jar`
 
 Upload it in the Linux Server and use Docker to build container by **DockerFile**
+
+```dockerfile
+#java version is 17
+FROM openjdk:17
+
+#copy all jar files
+COPY *.jar /app.jar
+
+#server port
+CMD ["--server.port=9091"]
+
+#container expose port
+EXPOSE 9091
+
+#container run command
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
 
 **DockerFile** is in `Cloud_Native_Architecture/userservice1/DockerFile` `Cloud_Native_Architecture/patientservice1/DockerFile` `Cloud_Native_Architecture/appointmentservice1/DockerFile`
 
@@ -332,4 +393,49 @@ Stability: The Cloud Native Architecture shows significantly better stability co
 Conclusion: Based on these comparative results, it can be concluded that the Cloud Native  Architecture has clear advantages in terms of performance, stability, and resource utilization.  It provides better support and lower response times in high concurrency and high load  environments. These advantages make the Cloud Native Architecture more suitable for  modern applications, especially in scenarios requiring high load, high scalability, and high  reliability.
 
 Detail in  [Cloud Native Architecture Performance Testing Report.pdf](Performance Testing Report\Cloud Native Architecture Performance Testing Report.pdf)  and [Prototype Performance Testing Report.pdf](Performance Testing Report\Prototype Performance Testing Report.pdf) 
+
+# 7. Running Script
+
+This is the script for running and building the application which can be used as a reference
+
+`/DockerFile/container_run_shell`
+
+```bash
++---/DockerFile/container_run_shell
+|       			appointmentservice.sh
+|       			build all service image.sh
+|       			patientservice.sh
+|       			stop & delete & remove all service image.sh
+|       			userservice.sh
+```
+
+```shell
+#build all service
+docker build -t patientservice /root/patientservice && \
+docker build -t appointmentservice /root/appointmentservice && \
+docker build -t userservice /root/userservice
+############################################################################################################
+#run appointmentservice
+PREFIX="appointmentservice"
+SUFFIX=$(date +%Y%m%d%H%M%S)
+NAME="$PREFIX-$SUFFIX"
+docker run -d -p 9091:9091 --network=host --restart=unless-stopped --name "$NAME" appointmentservice
+############################################################################################################
+#run userservice
+PREFIX="userservice"
+SUFFIX=$(date +%Y%m%d%H%M%S)
+NAME="$PREFIX-$SUFFIX"
+docker run -d -p 8081:8081 --network=host --restart=unless-stopped --name "$NAME" userservice
+############################################################################################################
+#run appointmentservice
+PREFIX="patientservice"
+SUFFIX=$(date +%Y%m%d%H%M%S)
+NAME="$PREFIX-$SUFFIX"
+docker run -d -p 7071:7071 --network=host --restart=unless-stopped --name "$NAME" patientservice
+############################################################################################################
+#stop & remove all service and images
+docker stop $(docker ps -q) && docker rm $(docker ps -aq) && docker rmi $(docker images -q --filter=reference='*service*')
+```
+
+
 
