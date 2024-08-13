@@ -1,0 +1,190 @@
+*********newuser_  {
+  '$id': '668df69a002422c8db72',
+  '$createdAt': '2024-07-10T02:48:31.099+00:00',
+  '$updatedAt': '2024-07-10T02:48:31.099+00:00',
+  name: 'john1111',
+  password: null,
+  hash: 'argon2',
+  hashOptions: { type: 'argon2', memoryCost: 2048, timeCost: 4, threads: 3 },
+  registration: '2024-07-10T02:48:31.098+00:00',
+  status: true,
+  labels: [],
+  passwordUpdate: '',
+  email: 'jo1111@gmail.com',
+  phone: '+1341234123',
+  emailVerification: false,
+  phoneVerification: false,
+  mfa: false,
+  prefs: {},
+  targets: [
+    {
+      '$id': '668df67f225bbe0eaee9',
+      '$createdAt': '2024-07-10T02:48:31.140+00:00',
+      '$updatedAt': '2024-07-10T02:48:31.140+00:00',
+      name: '',
+      userId: '668df69a002422c8db72',
+      providerId: null,
+      providerType: 'email',
+      identifier: 'jo1111@gmail.com'
+    },
+    {
+      '$id': '668df67f2541224bc59e',
+      '$createdAt': '2024-07-10T02:48:31.152+00:00',
+      '$updatedAt': '2024-07-10T02:48:31.152+00:00',
+      name: '',
+      userId: '668df69a002422c8db72',
+      providerId: null,
+      providerType: 'sms',
+      identifier: '+1341234123'
+    }
+  ],
+  accessedAt: ''
+}
+
+
+*********parseStringify(newPatient)_  {
+  userId: '668df69a002422c8db72',
+  name: 'john1111',
+  email: 'jo1111@gmail.com',
+  phone: '+1341234123',
+  birthDate: '2024-07-11T04:42:10.531Z',
+  gender: 'Male',
+  address: '14 street, New york, NY - 5101',
+  occupation: '14 street, New york, NY - 5101',
+  emergencyContactName: '14 street, New york, NY - 5101',
+  emergencyContactNumber: '+1341234123',
+  primaryPhysician: 'John Green',
+  insuranceProvider: 'BlueCrossBlueShield',
+  insurancePolicyNumber: 'ABC123456789',
+  allergies: 'BlueCrossBlueShield',
+  currentMedication: 'BlueCrossBlueShield',
+  familyMedicalHistory: 'BlueCrossBlueShield',
+  pastMedicalHistory: 'BlueCrossBlueShield',
+  privacyConsent: true,
+  '$id': '668f62d500066ee09746',
+  '$permissions': [],
+  '$createdAt': '2024-07-11T04:42:33.656+00:00',
+  '$updatedAt': '2024-07-11T04:42:33.656+00:00',
+  '$tenant': '165099',
+  identificationType: null,
+  identificationNumber: null,
+  identificationDocumentId: null,
+  identificationDocumentUrl: null,
+  '$databaseId': 'HealthCare_Test',
+  '$collectionId': '668dcb03002709d177a5'
+}
+
+
+
+*********appointment_   {
+  schedule: '2024-07-11T04:43:04.828+00:00',
+  reason: 'Annual montlycheck-up',
+  note: 'Annual montlycheck-up',
+  primaryPhysician: 'Leila Cameron',
+  status: 'pending',
+  cancellationReason: null,
+  userId: '668df69a002422c8db72',
+  patient: '668f62d500066ee09746',
+  '$id': '668f62fa0008071c8a47',
+  '$tenant': '165099',
+  '$createdAt': '2024-07-11T04:43:10.383+00:00',
+  '$updatedAt': '2024-07-11T04:43:10.383+00:00',
+  '$permissions': [],
+  '$databaseId': 'HealthCare_Test',
+  '$collectionId': '668dcb7f001175a06ddd'
+}
+
+
+*********data(list)_   {
+  totalCount: 3,
+  scheduledCount: 1,
+  pendingCount: 2,
+  cancelledCount: 0,
+  documents: [
+    {
+      schedule: '2024-07-11T04:43:04.828+00:00',
+      reason: 'Annual montlycheck-up',
+      note: 'Annual montlycheck-up',
+      primaryPhysician: 'Leila Cameron',
+      status: 'pending',
+      cancellationReason: null,
+      userId: '668df69a002422c8db72',
+      patient: '668f62d500066ee09746',
+      '$id': '668f62fa0008071c8a47',
+      '$tenant': '165099',
+      '$createdAt': '2024-07-11T04:43:10.383+00:00',
+      '$updatedAt': '2024-07-11T04:43:10.383+00:00',
+      '$permissions': [],
+      '$databaseId': 'HealthCare_Test',
+      '$collectionId': '668dcb7f001175a06ddd'
+    },
+    {
+      schedule: '2024-07-10T16:21:27.770+00:00',
+      reason: 'Annual montly check-up',
+      note: 'Preferafternoonappointments,ifpossible',
+      primaryPhysician: 'Leila Cameron',
+      status: 'pending',
+      cancellationReason: null,
+      userId: '668e00380029b79542d7',
+      patient: '668eb5070013e7bd72bf',
+      '$id': '668eb570002aaa0bc252',
+      '$tenant': '165099',
+      '$createdAt': '2024-07-10T16:22:44.904+00:00',
+      '$updatedAt': '2024-07-10T16:22:44.904+00:00',
+      '$permissions': [],
+      '$databaseId': 'HealthCare_Test',
+      '$collectionId': '668dcb7f001175a06ddd'
+    },
+    {
+      schedule: '2024-07-11T01:30:00.000+00:00',
+      reason: "no reason just want to use doctor 's laptop to leetcode",
+      note: '',
+      primaryPhysician: 'Leila Cameron',
+      status: 'scheduled',
+      cancellationReason: '1231',
+      userId: '668c74d8000a8b174d04',
+      patient: '668dd8f40015856875d2',
+      '$id': '668ddb67000c5f7f07ba',
+      '$tenant': '165099',
+      '$createdAt': '2024-07-10T00:52:27.686+00:00',
+      '$updatedAt': '2024-07-10T01:01:08.698+00:00',
+      '$permissions': [],
+      '$databaseId': 'HealthCare_Test',
+      '$collectionId': '668dcb7f001175a06ddd'
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

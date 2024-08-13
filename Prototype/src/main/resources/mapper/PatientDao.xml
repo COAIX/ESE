@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.lw.g_healthcare.dao.PatientDao">
+
+     <resultMap type="com.lw.g_healthcare.entity.Patient" id="PatientMap">
+         <result property="patientId" column="patientId" jdbcType="VARCHAR"/>
+         <result property="userId" column="userId" jdbcType="VARCHAR"/>
+         <result property="name" column="name" jdbcType="VARCHAR"/>
+         <result property="email" column="email" jdbcType="VARCHAR"/>
+         <result property="phone" column="phone" jdbcType="VARCHAR"/>
+         <result property="birthDate" column="birthDate" jdbcType="TIMESTAMP"/>
+         <result property="gender" column="gender" jdbcType="VARCHAR"/>
+         <result property="address" column="address" jdbcType="VARCHAR"/>
+         <result property="occupation" column="occupation" jdbcType="VARCHAR"/>
+         <result property="emergencyContactName" column="emergencyContactName" jdbcType="VARCHAR"/>
+         <result property="emergencyContactNumber" column="emergencyContactNumber" jdbcType="VARCHAR"/>
+         <result property="primaryPhysician" column="primaryPhysician" jdbcType="VARCHAR"/>
+         <result property="insuranceProvider" column="insuranceProvider" jdbcType="VARCHAR"/>
+         <result property="insurancePolicyNumber" column="insurancePolicyNumber" jdbcType="VARCHAR"/>
+         <result property="allergies" column="allergies" jdbcType="VARCHAR"/>
+         <result property="currentMedication" column="currentMedication" jdbcType="VARCHAR"/>
+         <result property="familyMedicalHistory" column="familyMedicalHistory" jdbcType="VARCHAR"/>
+         <result property="pastMedicalHistory" column="pastMedicalHistory" jdbcType="VARCHAR"/>
+         <result property="privacyConsent" column="privacyConsent" jdbcType="INTEGER"/>
+     </resultMap>
+
+     <!--查询单个-->
+     <select id="queryById" resultMap="PatientMap">
+         select
+patientId,userId,name,email,phone,birthDate,gender,address,occupation,emergencyContactName,emergencyContactNumber,primaryPhysician,insuranceProvider,insurancePolicyNumber,allergies,currentMedication,familyMedicalHistory,pastMedicalHistory,privacyConsent
+         from patient
+         where patientId = #{patientId}
+     </select>
+
+     <!--查询指定行数据-->
+     <select id="queryAllByLimit" resultMap="PatientMap">
+         select
+patientId,userId,name,email,phone,birthDate,gender,address,occupation,emergencyContactName,emergencyContactNumber,primaryPhysician,insuranceProvider,insurancePolicyNumber,allergies,currentMedication,familyMedicalHistory,pastMedicalHistory,privacyConsent
+         from patient
+         <where>
+             <if test="patientId != null and patientId != ''">
+                 and patientId = #{patientId}
+             </if>
+             <if test="userId != null and userId != ''">
+                 and userId = #{userId}
+             </if>
+             <if test="name != null and name != ''">
+                 and name = #{name}
+             </if>
+             <if test="email != null and email != ''">
+                 and email = #{email}
+             </if>
+             <if test="phone != null and phone != ''">
+                 and phone = #{phone}
+             </if>
+             <if test="birthDate != null">
+                 and birthDate = #{birthDate}
+             </if>
+             <if test="gender != null and gender != ''">
+                 and gender = #{gender}
+             </if>
+             <if test="address != null and address != ''">
+                 and address = #{address}
+             </if>
+             <if test="occupation != null and occupation != ''">
+                 and occupation = #{occupation}
+             </if>
+             <if test="emergencyContactName != null and emergencyContactName != ''">
+                 and emergencyContactName = #{emergencyContactName}
+             </if>
+             <if test="emergencyContactNumber != null and emergencyContactNumber != ''">
+                 and emergencyContactNumber = #{emergencyContactNumber}
+             </if>
+             <if test="primaryPhysician != null and primaryPhysician != ''">
+                 and primaryPhysician = #{primaryPhysician}
+             </if>
+             <if test="insuranceProvider != null and insuranceProvider != ''">
+                 and insuranceProvider = #{insuranceProvider}
+             </if>
+             <if test="insurancePolicyNumber != null and insurancePolicyNumber != ''">
+                 and insurancePolicyNumber = #{insurancePolicyNumber}
+             </if>
+             <if test="allergies != null and allergies != ''">
+                 and allergies = #{allergies}
+             </if>
+             <if test="currentMedication != null and currentMedication != ''">
+                 and currentMedication = #{currentMedication}
+             </if>
+             <if test="familyMedicalHistory != null and familyMedicalHistory != ''">
+                 and familyMedicalHistory = #{familyMedicalHistory}
+             </if>
+             <if test="pastMedicalHistory != null and pastMedicalHistory != ''">
+                 and pastMedicalHistory = #{pastMedicalHistory}
+             </if>
+             <if test="privacyConsent != null">
+                 and privacyConsent = #{privacyConsent}
+             </if>
+         </where>
+         limit #{pageable.offset}, #{pageable.pageSize}
+     </select>
+
+     <!--统计总行数-->
+     <select id="count" resultType="java.lang.Long">
+         select count(1)
+         from patient
+         <where>
+             <if test="patientId != null and patientId != ''">
+                 and patientId = #{patientId}
+             </if>
+             <if test="userId != null and userId != ''">
+                 and userId = #{userId}
+             </if>
+             <if test="name != null and name != ''">
+                 and name = #{name}
+             </if>
+             <if test="email != null and email != ''">
+                 and email = #{email}
+             </if>
+             <if test="phone != null and phone != ''">
+                 and phone = #{phone}
+             </if>
+             <if test="birthDate != null">
+                 and birthDate = #{birthDate}
+             </if>
+             <if test="gender != null and gender != ''">
+                 and gender = #{gender}
+             </if>
+             <if test="address != null and address != ''">
+                 and address = #{address}
+             </if>
+             <if test="occupation != null and occupation != ''">
+                 and occupation = #{occupation}
+             </if>
+             <if test="emergencyContactName != null and emergencyContactName != ''">
+                 and emergencyContactName = #{emergencyContactName}
+             </if>
+             <if test="emergencyContactNumber != null and emergencyContactNumber != ''">
+                 and emergencyContactNumber = #{emergencyContactNumber}
+             </if>
+             <if test="primaryPhysician != null and primaryPhysician != ''">
+                 and primaryPhysician = #{primaryPhysician}
+             </if>
+             <if test="insuranceProvider != null and insuranceProvider != ''">
+                 and insuranceProvider = #{insuranceProvider}
+             </if>
+             <if test="insurancePolicyNumber != null and insurancePolicyNumber != ''">
+                 and insurancePolicyNumber = #{insurancePolicyNumber}
+             </if>
+             <if test="allergies != null and allergies != ''">
+                 and allergies = #{allergies}
+             </if>
+             <if test="currentMedication != null and currentMedication != ''">
+                 and currentMedication = #{currentMedication}
+             </if>
+             <if test="familyMedicalHistory != null and familyMedicalHistory != ''">
+                 and familyMedicalHistory = #{familyMedicalHistory}
+             </if>
+             <if test="pastMedicalHistory != null and pastMedicalHistory != ''">
+                 and pastMedicalHistory = #{pastMedicalHistory}
+             </if>
+             <if test="privacyConsent != null">
+                 and privacyConsent = #{privacyConsent}
+             </if>
+         </where>
+     </select>
+
+    <select id="queryByUserId" resultType="com.lw.g_healthcare.entity.Patient">
+        select *
+        from patient
+        where userId = #{userId}
+    </select>
+
+    <!--新增所有列-->
+     <insert id="insert" keyProperty="patientId" useGeneratedKeys="true">
+         insert into patient(patientId, userId, name, email, phone, birthDate, gender, address, occupation, emergencyContactName, emergencyContactNumber, primaryPhysician, insuranceProvider, insurancePolicyNumber, allergies, currentMedication, familyMedicalHistory, pastMedicalHistory, privacyConsent)
+         values (#{patientId}, #{userId}, #{name}, #{email}, #{phone}, #{birthDate}, #{gender}, #{address}, #{occupation}, #{emergencyContactName}, #{emergencyContactNumber}, #{primaryPhysician}, #{insuranceProvider}, #{insurancePolicyNumber}, #{allergies}, #{currentMedication}, #{familyMedicalHistory}, #{pastMedicalHistory}, #{privacyConsent})
+     </insert>
+
+     <insert id="insertBatch" keyProperty="patientId" useGeneratedKeys="true">
+         insert into patient(patientId, userId, name, email, phone, birthDate, gender, address, occupation, emergencyContactName, emergencyContactNumber, primaryPhysician, insuranceProvider, insurancePolicyNumber, allergies, currentMedication, familyMedicalHistory, pastMedicalHistory, privacyConsent)
+         values
+         <foreach collection="entities" item="entity" separator=",">
+         (#{entity.patientId}, #{entity.userId}, #{entity.name}, #{entity.email}, #{entity.phone}, #{entity.birthDate}, #{entity.gender}, #{entity.address}, #{entity.occupation}, #{entity.emergencyContactName}, #{entity.emergencyContactNumber}, #{entity.primaryPhysician}, #{entity.insuranceProvider}, #{entity.insurancePolicyNumber}, #{entity.allergies}, #{entity.currentMedication}, #{entity.familyMedicalHistory}, #{entity.pastMedicalHistory}, #{entity.privacyConsent})
+         </foreach>
+     </insert>
+
+     <insert id="insertOrUpdateBatch" keyProperty="patientId" useGeneratedKeys="true">
+         insert into patient(
+                 patientId, 
+                 userId, 
+                 name, 
+                 email, 
+                 phone, 
+                 birthDate, 
+                 gender, 
+                 address, 
+                 occupation, 
+                 emergencyContactName, 
+                 emergencyContactNumber, 
+                 primaryPhysician, 
+                 insuranceProvider, 
+                 insurancePolicyNumber, 
+                 allergies, 
+                 currentMedication, 
+                 familyMedicalHistory, 
+                 pastMedicalHistory, 
+                 privacyConsent
+         )
+         values
+         <foreach collection="entities" item="entity" separator=",">
+             (
+                     #{entity.patientId}, 
+                     #{entity.userId}, 
+                     #{entity.name}, 
+                     #{entity.email}, 
+                     #{entity.phone}, 
+                     #{entity.birthDate}, 
+                     #{entity.gender}, 
+                     #{entity.address}, 
+                     #{entity.occupation}, 
+                     #{entity.emergencyContactName}, 
+                     #{entity.emergencyContactNumber}, 
+                     #{entity.primaryPhysician}, 
+                     #{entity.insuranceProvider}, 
+                     #{entity.insurancePolicyNumber}, 
+                     #{entity.allergies}, 
+                     #{entity.currentMedication}, 
+                     #{entity.familyMedicalHistory}, 
+                     #{entity.pastMedicalHistory}, 
+                     #{entity.privacyConsent}
+             )
+         </foreach>
+         on duplicate key update
+             patientId = values(patientId), 
+             userId = values(userId), 
+             name = values(name), 
+             email = values(email), 
+             phone = values(phone), 
+             birthDate = values(birthDate), 
+             gender = values(gender), 
+             address = values(address), 
+             occupation = values(occupation), 
+             emergencyContactName = values(emergencyContactName), 
+             emergencyContactNumber = values(emergencyContactNumber), 
+             primaryPhysician = values(primaryPhysician), 
+             insuranceProvider = values(insuranceProvider), 
+             insurancePolicyNumber = values(insurancePolicyNumber), 
+             allergies = values(allergies), 
+             currentMedication = values(currentMedication), 
+             familyMedicalHistory = values(familyMedicalHistory), 
+             pastMedicalHistory = values(pastMedicalHistory), 
+             privacyConsent = values(privacyConsent)
+     </insert>
+
+<!--通过userId修改数据-->
+
+
+     <!--通过主键修改数据-->
+     <update id="update">
+         update patient
+         <set>
+             <if test="patientId != null and patientId != ''">
+                 patientId = #{patientId},
+             </if>
+             <if test="userId != null and userId != ''">
+                 userId = #{userId},
+             </if>
+             <if test="name != null and name != ''">
+                 name = #{name},
+             </if>
+             <if test="email != null and email != ''">
+                 email = #{email},
+             </if>
+             <if test="phone != null and phone != ''">
+                 phone = #{phone},
+             </if>
+             <if test="birthDate != null">
+                 birthDate = #{birthDate},
+             </if>
+             <if test="gender != null and gender != ''">
+                 gender = #{gender},
+             </if>
+             <if test="address != null and address != ''">
+                 address = #{address},
+             </if>
+             <if test="occupation != null and occupation != ''">
+                 occupation = #{occupation},
+             </if>
+             <if test="emergencyContactName != null and emergencyContactName != ''">
+                 emergencyContactName = #{emergencyContactName},
+             </if>
+             <if test="emergencyContactNumber != null and emergencyContactNumber != ''">
+                 emergencyContactNumber = #{emergencyContactNumber},
+             </if>
+             <if test="primaryPhysician != null and primaryPhysician != ''">
+                 primaryPhysician = #{primaryPhysician},
+             </if>
+             <if test="insuranceProvider != null and insuranceProvider != ''">
+                 insuranceProvider = #{insuranceProvider},
+             </if>
+             <if test="insurancePolicyNumber != null and insurancePolicyNumber != ''">
+                 insurancePolicyNumber = #{insurancePolicyNumber},
+             </if>
+             <if test="allergies != null and allergies != ''">
+                 allergies = #{allergies},
+             </if>
+             <if test="currentMedication != null and currentMedication != ''">
+                 currentMedication = #{currentMedication},
+             </if>
+             <if test="familyMedicalHistory != null and familyMedicalHistory != ''">
+                 familyMedicalHistory = #{familyMedicalHistory},
+             </if>
+             <if test="pastMedicalHistory != null and pastMedicalHistory != ''">
+                 pastMedicalHistory = #{pastMedicalHistory},
+             </if>
+             <if test="privacyConsent != null">
+                 privacyConsent = #{privacyConsent},
+             </if>
+         </set>
+         where patientId = #{patientId}
+     </update>
+
+    <!--通过userId修改数据-->
+    <update id="updateByUserId">
+        update patient
+        <set>
+            <if test="patientId != null and patientId != ''">
+                patientId = #{patientId},
+            </if>
+            <if test="userId != null and userId != ''">
+                userId = #{userId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="birthDate != null">
+                birthDate = #{birthDate},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="occupation != null and occupation != ''">
+                occupation = #{occupation},
+            </if>
+            <if test="emergencyContactName != null and emergencyContactName != ''">
+                emergencyContactName = #{emergencyContactName},
+            </if>
+            <if test="emergencyContactNumber != null and emergencyContactNumber != ''">
+                emergencyContactNumber = #{emergencyContactNumber},
+            </if>
+            <if test="primaryPhysician != null and primaryPhysician != ''">
+                primaryPhysician = #{primaryPhysician},
+            </if>
+            <if test="insuranceProvider != null and insuranceProvider != ''">
+                insuranceProvider = #{insuranceProvider},
+            </if>
+            <if test="insurancePolicyNumber != null and insurancePolicyNumber != ''">
+                insurancePolicyNumber = #{insurancePolicyNumber},
+            </if>
+            <if test="allergies != null and allergies != ''">
+                allergies = #{allergies},
+            </if>
+            <if test="currentMedication != null and currentMedication != ''">
+                currentMedication = #{currentMedication},
+            </if>
+            <if test="familyMedicalHistory != null and familyMedicalHistory != ''">
+                familyMedicalHistory = #{familyMedicalHistory},
+            </if>
+            <if test="pastMedicalHistory != null and pastMedicalHistory != ''">
+                pastMedicalHistory = #{pastMedicalHistory},
+            </if>
+            <if test="privacyConsent != null">
+                privacyConsent = #{privacyConsent},
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+     <delete id="deleteById">
+         delete from patient where patientId = #{patientId}
+     </delete>
+
+ </mapper>
